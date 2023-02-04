@@ -5,25 +5,28 @@ import fetcher from "~/helpers/fetcher";
 import { IDeploymentResponse } from "~/types";
 import UpdateIcon from "~/svg/update.svg";
 import DeploymentCard from "./Card";
-import {
-  isPermissionGranted,
-  requestPermission,
-  sendNotification,
-} from "@tauri-apps/api/notification";
-import { useEffect } from "react";
 
-const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
-  // reached the end
-  if (previousPageData && !previousPageData.deployments) return null;
+interface IDeploymentsProps {
+  selectedProject: string;
+}
 
-  // first page, we don't have `previousPageData`
-  if (pageIndex === 0) return API_ENDPOINTS.deployments;
+const Deployments = ({ selectedProject }: IDeploymentsProps) => {
+  const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
+    // reached the end
+    if (previousPageData && !previousPageData.deployments) return null;
 
-  // add the cursor to the API endpoint
-  return `${API_ENDPOINTS.deployments}?until=${previousPageData.pagination.next}`;
-};
+    if (selectedProject === "") {
+      if (pageIndex === 0) return API_ENDPOINTS.deployments;
 
-const Deployments = () => {
+      return `${API_ENDPOINTS.deployments}?until=${previousPageData.pagination.next}`;
+    } else {
+      if (pageIndex === 0)
+        return `${API_ENDPOINTS.deployments}?projectId=${selectedProject}`;
+
+      return `${API_ENDPOINTS.deployments}?projectId=${selectedProject}&until=${previousPageData.pagination.next}`;
+    }
+  };
+
   const { data, error, setSize, size, isLoading, isValidating } =
     useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
       // refreshInterval: 15 * 1000,
@@ -32,24 +35,6 @@ const Deployments = () => {
   if (error) {
     return <p>Something went wrong</p>;
   }
-
-  useEffect(() => {
-    async function startNotificationStream() {
-      let permissionGranted = await isPermissionGranted();
-      if (!permissionGranted) {
-        const permission = await requestPermission();
-        permissionGranted = permission === "granted";
-      }
-      if (permissionGranted) {
-        console.log("hello");
-
-        sendNotification({ title: "TAURI", body: "Tauri is awesome!" });
-      }
-    }
-    // if (state === "ERROR") {
-    startNotificationStream();
-    // }
-  }, []);
 
   return (
     <React.Fragment>

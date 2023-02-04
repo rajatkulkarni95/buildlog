@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import useSWR from "swr";
 import Header from "~/components/common/Header";
 import Deployments from "~/components/Deployments";
@@ -10,10 +10,15 @@ import { IUser } from "~/types";
 
 const Dashboard = () => {
   const { data, error } = useSWR<IUser>(API_ENDPOINTS.user, fetcher);
+  const [selectedProject, setSelectedProject] = useState<string>("");
 
   if (error) {
     return <h1>Something went wrong</h1>;
   }
+
+  const handleProjectChange = (id: string) => {
+    setSelectedProject(id);
+  };
 
   return (
     <Fragment>
@@ -35,10 +40,13 @@ const Dashboard = () => {
             </p>
           </section>
         </div>
-        <ProjectsDropdown />
+        <ProjectsDropdown
+          selectedProject={selectedProject}
+          handleProjectChange={handleProjectChange}
+        />
       </Header>
       <section className="p-3 flex flex-col h-full overflow-y-auto overflow-x-hidden hide_scrollbar">
-        <Deployments />
+        <Deployments selectedProject={selectedProject} />
       </section>
     </Fragment>
   );

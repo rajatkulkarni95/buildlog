@@ -5,10 +5,16 @@ import fetcher from "~/helpers/fetcher";
 import { IProject } from "~/types";
 import Dropdown from "./common/Dropdown";
 
-const ProjectsDropdown = () => {
-  const { data, error } = useSWR<IProject>(API_ENDPOINTS.projects, fetcher);
+interface IProjectDropdownProps {
+  handleProjectChange: (id: string) => void;
+  selectedProject: string;
+}
 
-  const [selectedProject, setSelectedProject] = useState("all-projects");
+const ProjectsDropdown = ({
+  handleProjectChange,
+  selectedProject,
+}: IProjectDropdownProps) => {
+  const { data, error } = useSWR<IProject>(API_ENDPOINTS.projects, fetcher);
 
   if (error) {
     return <p>Something went wrong</p>;
@@ -21,7 +27,7 @@ const ProjectsDropdown = () => {
 
   availableProjects?.splice(0, 0, {
     label: "All Projects",
-    id: "all-projects",
+    id: "",
   });
 
   return (
@@ -32,7 +38,7 @@ const ProjectsDropdown = () => {
       }
       items={availableProjects}
       selectedId={selectedProject}
-      handleOnClick={(id) => setSelectedProject(id)}
+      handleOnClick={handleProjectChange}
     />
   );
 };
