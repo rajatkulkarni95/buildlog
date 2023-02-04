@@ -22,7 +22,7 @@ const Dropdown = ({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button
-          className="py-1 px-4 border outline-none rounded border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 font-sans text-sm"
+          className="py-1 px-4 border max-w-[256px] truncate outline-none rounded border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 font-sans text-sm"
           aria-label={triggerLabel}
         >
           {triggerLabel}

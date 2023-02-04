@@ -78,7 +78,7 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
             </span>
           </a>
         </div>
-        <div className="flex items-center mb-2">
+        <div className="flex items-center mb-1">
           <BranchIcon className="mr-1 text-zinc-500 dark:text-zinc-400 flex-shrink-0" />{" "}
           <a
             href={`https://github.com/${meta.githubCommitOrg}/${meta.githubCommitRepo}/tree/${meta.githubCommitRef}`}
@@ -89,30 +89,33 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
             {meta.githubCommitRef}
           </a>
         </div>
-        <div className="flex items-center mb-1">
+        <div className="flex items-center">
           <ClockIcon className="mr-1 text-zinc-500 dark:text-zinc-400 flex-shrink-0" />{" "}
-          <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
-            {dayjs(ready).fromNow()} by {creator.username}
+          <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400 mr-1 max-w-[220px] truncate">
+            {dayjs(ready).fromNow()} by {creator.username} &nbsp;
           </span>
+          &#8226;
+          <a
+            href={inspectorUrl}
+            className="flex items-center justify-center hover:underline ml-2 mr-2"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <VercelIcon className="text-zinc-900 dark:text-zinc-50 mr-1" />{" "}
+            <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
+              Inspector
+            </span>
+          </a>
+          &#8226;
+          <a
+            href={`https://${url}`}
+            className="ml-2 text-zinc-900 dark:text-zinc-50 hover:underline text-xs"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View Site
+          </a>
         </div>
-      </section>
-      <section className="flex flex-col justify-center w-12 h-full ml-auto">
-        <a
-          href={`https://${url}`}
-          className="rounded-tr flex items-center justify-center bg-zinc-900 dark:bg-zinc-50 dark:hover:bg-zinc-200 hover:bg-zinc-700 border-b flex-1 border-zinc-400 dark:border-zinc-500"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <OpenInNewWindowIcon className="text-zinc-50 dark:text-zinc-900" />
-        </a>
-        <a
-          href={inspectorUrl}
-          className="rounded-br flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 flex-1 hover:bg-neutral-300 hover:dark:bg-neutral-700"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <VercelIcon className="text-zinc-900 dark:text-zinc-50" />
-        </a>
       </section>
     </div>
   );

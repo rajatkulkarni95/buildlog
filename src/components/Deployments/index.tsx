@@ -5,6 +5,12 @@ import fetcher from "~/helpers/fetcher";
 import { IDeploymentResponse } from "~/types";
 import UpdateIcon from "~/svg/update.svg";
 import DeploymentCard from "./Card";
+import {
+  isPermissionGranted,
+  requestPermission,
+  sendNotification,
+} from "@tauri-apps/api/notification";
+import { useEffect } from "react";
 
 const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
   // reached the end
@@ -20,12 +26,30 @@ const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
 const Deployments = () => {
   const { data, error, setSize, size, isLoading, isValidating } =
     useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
-      refreshInterval: 15 * 1000,
+      // refreshInterval: 15 * 1000,
     });
 
   if (error) {
     return <p>Something went wrong</p>;
   }
+
+  useEffect(() => {
+    async function startNotificationStream() {
+      let permissionGranted = await isPermissionGranted();
+      if (!permissionGranted) {
+        const permission = await requestPermission();
+        permissionGranted = permission === "granted";
+      }
+      if (permissionGranted) {
+        console.log("hello");
+
+        sendNotification({ title: "TAURI", body: "Tauri is awesome!" });
+      }
+    }
+    // if (state === "ERROR") {
+    startNotificationStream();
+    // }
+  }, []);
 
   return (
     <React.Fragment>
