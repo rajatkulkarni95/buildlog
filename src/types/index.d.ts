@@ -24,6 +24,7 @@ export interface IDeploymentResponse {
 export interface IDeployment {
   uid: string;
   name: string;
+  url: string;
   state?:
     | "BUILDING"
     | "ERROR"

@@ -5,6 +5,8 @@ import ClockIcon from "~/svg/clock.svg";
 import BranchIcon from "~/svg/branch.svg";
 import CheckCircledIcon from "~/svg/check-circled.svg";
 import CrossCircledIcon from "~/svg/cross-circled.svg";
+import OpenInNewWindowIcon from "~/svg/open-in-new-window.svg";
+import VercelIcon from "~/svg/vercel-logo.svg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -15,7 +17,8 @@ interface IDeploymentCardProps {
 }
 
 const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
-  const { meta, name, ready, creator, state, createdAt } = deployment;
+  const { meta, name, url, ready, creator, state, createdAt, inspectorUrl } =
+    deployment;
 
   const renderIcon = () => {
     switch (state) {
@@ -32,15 +35,25 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
     }
   };
 
+  const renderCompletionTime = () => {
+    const completionSeconds = dayjs(ready).diff(dayjs(createdAt), "s");
+
+    if (completionSeconds < 60) {
+      return `${completionSeconds}s`;
+    } else {
+      const minutes = Math.floor(completionSeconds / 60);
+      const seconds = completionSeconds % 60;
+
+      return `${minutes}m ${seconds}s`;
+    }
+  };
+
   return (
-    <div className="p-2 mb-1 flex items-center rounded border border-zinc-300 dark:border-zinc-700 w-full bg-transparent hover:bg-zinc-100 hover:dark:bg-zinc-800">
-      <section className="flex flex-col mr-3">
+    <div className="mb-1 flex items-center rounded border border-zinc-300 dark:border-zinc-700 w-full bg-transparent hover:bg-zinc-100 hover:dark:bg-zinc-800">
+      <section className="flex flex-col items-center mr-3 pl-2">
         {renderIcon()}{" "}
-        {/* <span className="text-xs text-zinc-500 dark:text-zinc-400 mr-1">
-          {dayjs(createdAt).diff(dayjs(ready))}
-        </span> */}
       </section>{" "}
-      <section>
+      <section className="py-2">
         <div className="flex items-center mb-1">
           <ProjectIcon className="mr-1 text-zinc-500 dark:text-zinc-400 flex-shrink-0" />{" "}
           <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
@@ -53,7 +66,7 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
             href={`https://github.com/${meta.githubCommitOrg}/${meta.githubCommitRepo}/commit/${meta.githubCommitSha}`}
             target="_blank"
             rel="noreferrer"
-            className="hover:underline cursor-pointer"
+            className="hover:underline cursor-pointer w-[280px] truncate"
           >
             <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
               {meta.githubCommitMessage}
@@ -77,6 +90,24 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
             {dayjs(ready).fromNow()} by {creator.username}
           </span>
         </div>
+      </section>
+      <section className="flex flex-col justify-center ml-auto h-full">
+        <a
+          href={`https://${url}`}
+          className="rounded-tr flex items-center justify-center bg-zinc-900 dark:bg-zinc-50 border-b flex-1 w-12 border-zinc-400 dark:border-zinc-500"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <OpenInNewWindowIcon className="text-zinc-50 dark:text-zinc-50" />
+        </a>
+        <a
+          href={inspectorUrl}
+          className="rounded-br flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 flex-1 w-12"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <VercelIcon className="text-zinc-900 dark:text-zinc-50" />
+        </a>
       </section>
     </div>
   );
