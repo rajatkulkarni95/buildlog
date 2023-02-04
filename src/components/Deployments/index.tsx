@@ -47,7 +47,11 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
   }, [isVisible]);
 
   if (error) {
-    return <p>Something went wrong</p>;
+    return (
+      <p className="flex justify-center items-center h-24">
+        Something went wrong
+      </p>
+    );
   }
 
   return (

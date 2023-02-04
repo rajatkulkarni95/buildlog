@@ -14,7 +14,9 @@ const ProjectsDropdown = ({
   handleProjectChange,
   selectedProject,
 }: IProjectDropdownProps) => {
-  const { data, error } = useSWR<IProject>(API_ENDPOINTS.projects, fetcher);
+  const { data, error } = useSWR<IProject>(API_ENDPOINTS.projects, fetcher, {
+    revalidateOnFocus: false,
+  });
 
   if (error) {
     return <p>Something went wrong</p>;

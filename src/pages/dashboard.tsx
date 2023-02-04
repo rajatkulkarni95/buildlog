@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Fragment, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { Fragment, useState } from "react";
 import useSWR from "swr";
 import Header from "~/components/common/Header";
 import Deployments from "~/components/Deployments";
@@ -9,11 +10,15 @@ import fetcher from "~/helpers/fetcher";
 import { IUser } from "~/types";
 
 const Dashboard = () => {
-  const { data, error } = useSWR<IUser>(API_ENDPOINTS.user, fetcher);
+  const { data, error } = useSWR<IUser, Error>(API_ENDPOINTS.user, fetcher, {});
+  const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<string>("");
 
-  if (error) {
-    return <h1>Something went wrong</h1>;
+  if (
+    error?.message === "No token found" ||
+    error?.message === "Not authenticated"
+  ) {
+    router.push("/");
   }
 
   const handleProjectChange = (id: string) => {
@@ -45,7 +50,6 @@ const Dashboard = () => {
           handleProjectChange={handleProjectChange}
         />
       </Header>
-
       <Deployments selectedProject={selectedProject} />
     </Fragment>
   );
