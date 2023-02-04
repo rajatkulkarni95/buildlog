@@ -64,10 +64,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 720,
+        "height": 640,
         "resizable": true,
         "title": "BuildLog",
-        "width": 480
+        "width": 400
       }
     ]
   }
