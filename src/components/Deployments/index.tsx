@@ -3,6 +3,7 @@ import useSWRInfinite from "swr/infinite";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
 import { IDeploymentResponse } from "~/types";
+import UpdateIcon from "~/svg/update.svg";
 import DeploymentCard from "./Card";
 
 const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
@@ -17,10 +18,8 @@ const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
 };
 
 const Deployments = () => {
-  const { data, error, setSize, size } = useSWRInfinite<IDeploymentResponse>(
-    getKey,
-    fetcher
-  );
+  const { data, error, setSize, size, isLoading } =
+    useSWRInfinite<IDeploymentResponse>(getKey, fetcher);
 
   if (error) {
     return <p>Something went wrong</p>;
@@ -28,6 +27,14 @@ const Deployments = () => {
 
   return (
     <React.Fragment>
+      <div className="flex justify-between items-center mb-2">
+        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+          Deployments
+        </p>
+        {isLoading && (
+          <UpdateIcon className="animate-spin text-zinc-400 dark:text-zinc-500 mr-3" />
+        )}
+      </div>
       {data?.map((page) => {
         return page.deployments.map((deployment) => {
           return (

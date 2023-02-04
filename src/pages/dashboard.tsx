@@ -38,9 +38,6 @@ const Dashboard = () => {
         <ProjectsDropdown />
       </Header>
       <section className="p-3 flex flex-col h-full overflow-y-auto overflow-x-hidden hide_scrollbar">
-        <p className="text-sm mb-2 font-medium text-zinc-500 dark:text-zinc-400">
-          Deployments
-        </p>
         <Deployments />
       </section>
     </Fragment>

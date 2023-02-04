@@ -66,7 +66,7 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
             href={`https://github.com/${meta.githubCommitOrg}/${meta.githubCommitRepo}/commit/${meta.githubCommitSha}`}
             target="_blank"
             rel="noreferrer"
-            className="hover:underline cursor-pointer w-[280px] truncate"
+            className="hover:underline cursor-pointer w-[320px] truncate"
           >
             <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
               {meta.githubCommitMessage}
