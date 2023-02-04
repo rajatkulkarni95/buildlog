@@ -1,6 +1,7 @@
 import Image from "next/image";
 import useSWR from "swr";
-import Header from "~/components/Header";
+import Header from "~/components/common/Header";
+import ProjectsDropdown from "~/components/ProjectsDropdown";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
 import { IUser } from "~/types";
@@ -32,6 +33,7 @@ const Dashboard = () => {
             </p>
           </section>
         </div>
+        <ProjectsDropdown />
       </Header>
     </div>
   );

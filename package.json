@@ -8,6 +8,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.2",
     "@tauri-apps/api": "^1.2.0",
     "next": "^13.0.0",
     "next-themes": "^0.2.1",
@@ -16,6 +17,7 @@
     "swr": "^2.0.3"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@tauri-apps/cli": "^1.2.2",
     "@types/node": "^18.7.11",
     "@types/react": "^18.0.17",
