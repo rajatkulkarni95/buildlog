@@ -18,8 +18,10 @@ const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
 };
 
 const Deployments = () => {
-  const { data, error, setSize, size, isLoading } =
-    useSWRInfinite<IDeploymentResponse>(getKey, fetcher);
+  const { data, error, setSize, size, isLoading, isValidating } =
+    useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
+      refreshInterval: 15 * 1000,
+    });
 
   if (error) {
     return <p>Something went wrong</p>;
@@ -31,7 +33,7 @@ const Deployments = () => {
         <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
           Deployments
         </p>
-        {isLoading && (
+        {(isLoading || isValidating) && (
           <UpdateIcon className="animate-spin text-zinc-400 dark:text-zinc-500 mr-3" />
         )}
       </div>

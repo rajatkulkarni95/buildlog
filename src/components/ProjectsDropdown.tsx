@@ -6,10 +6,7 @@ import { IProject } from "~/types";
 import Dropdown from "./common/Dropdown";
 
 const ProjectsDropdown = () => {
-  const { data, error, isLoading } = useSWR<IProject>(
-    API_ENDPOINTS.projects,
-    fetcher
-  );
+  const { data, error } = useSWR<IProject>(API_ENDPOINTS.projects, fetcher);
 
   const [selectedProject, setSelectedProject] = useState("all-projects");
 

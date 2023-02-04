@@ -7,6 +7,7 @@ import CheckCircledIcon from "~/svg/check-circled.svg";
 import CrossCircledIcon from "~/svg/cross-circled.svg";
 import OpenInNewWindowIcon from "~/svg/open-in-new-window.svg";
 import VercelIcon from "~/svg/vercel-logo.svg";
+import UpdateIcon from "~/svg/update.svg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -29,6 +30,10 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
       case "ERROR":
         return (
           <CrossCircledIcon className="text-red-500 h-4 w-4 dark:text-red-400" />
+        );
+      case "BUILDING":
+        return (
+          <UpdateIcon className="text-amber-500 dark:text-amber-400 animate-spin" />
         );
       default:
         break;
