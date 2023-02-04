@@ -10,6 +10,7 @@ interface IDropdown {
   }[];
   selectedId?: string;
   handleOnClick: (id: string) => void;
+  ref?: React.RefObject<HTMLDivElement>;
 }
 
 const Dropdown = ({
@@ -17,6 +18,7 @@ const Dropdown = ({
   items,
   selectedId,
   handleOnClick,
+  ref,
 }: IDropdown) => {
   return (
     <DropdownMenu.Root>
@@ -31,7 +33,7 @@ const Dropdown = ({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="shadow-sm bg-zinc-200 min-w-[192px] max-w-[256px] dark:bg-zinc-800 border border-zinc-700 rounded-md p-2"
+          className="shadow-sm bg-zinc-200 max-h-[250px] overflow-y-auto min-w-[192px] max-w-[256px] dark:bg-zinc-800 border border-zinc-700 rounded-md p-2"
           sideOffset={4}
           align="end"
         >
@@ -51,6 +53,7 @@ const Dropdown = ({
               )}
             </DropdownMenu.Item>
           ))}
+          <div ref={ref} />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

@@ -30,7 +30,7 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
 
   const { data, error, setSize, size, isLoading, isValidating } =
     useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
-      refreshInterval: 15 * 1000,
+      refreshInterval: 30 * 1000,
       revalidateFirstPage: false,
       revalidateOnFocus: false,
     });
@@ -49,7 +49,7 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
   if (error) {
     return (
       <p className="flex justify-center items-center h-24">
-        Something went wrong
+        Something broke! Yeah that wasn't supposed to happen.
       </p>
     );
   }
