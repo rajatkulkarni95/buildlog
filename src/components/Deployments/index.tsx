@@ -35,7 +35,6 @@ const Deployments = () => {
           );
         });
       })}
-      <button onClick={() => setSize(size + 1)}>Load More</button>
     </React.Fragment>
   );
 };

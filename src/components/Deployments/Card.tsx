@@ -91,18 +91,18 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
           </span>
         </div>
       </section>
-      <section className="flex flex-col justify-center ml-auto h-full">
+      <section className="flex flex-col justify-center w-12 h-full ml-auto">
         <a
           href={`https://${url}`}
-          className="rounded-tr flex items-center justify-center bg-zinc-900 dark:bg-zinc-50 border-b flex-1 w-12 border-zinc-400 dark:border-zinc-500"
+          className="rounded-tr flex items-center justify-center bg-zinc-900 dark:bg-zinc-50 dark:hover:bg-zinc-200 hover:bg-zinc-700 border-b flex-1 border-zinc-400 dark:border-zinc-500"
           target="_blank"
           rel="noreferrer"
         >
-          <OpenInNewWindowIcon className="text-zinc-50 dark:text-zinc-50" />
+          <OpenInNewWindowIcon className="text-zinc-50 dark:text-zinc-900" />
         </a>
         <a
           href={inspectorUrl}
-          className="rounded-br flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 flex-1 w-12"
+          className="rounded-br flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 flex-1 hover:bg-neutral-300 hover:dark:bg-neutral-700"
           target="_blank"
           rel="noreferrer"
         >
