@@ -38,7 +38,11 @@ const Dropdown = ({
           {items?.map((item) => (
             <DropdownMenu.Item
               key={item.id}
-              className="px-2 flex items-center justify-between cursor-default py-1 outline-none rounded bg-transparent ring-0 hover:bg-zinc-300 hover:dark:bg-zinc-700 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+              className={`px-2 flex items-center justify-between cursor-default py-1 outline-none rounded bg-transparent ring-0 hover:bg-zinc-300 hover:dark:bg-zinc-700 text-sm hover:text-zinc-900 dark:hover:text-zinc-50 ${
+                selectedId === item.id
+                  ? "text-zinc-900 dark:text-zinc-50"
+                  : "text-zinc-500 dark:text-zinc-400"
+              }`}
               onClick={() => handleOnClick(item.id)}
             >
               {item.label}{" "}

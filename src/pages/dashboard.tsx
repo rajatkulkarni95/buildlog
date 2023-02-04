@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import useSWR from "swr";
 import Header from "~/components/common/Header";
 import Deployments from "~/components/Deployments";
@@ -45,9 +45,8 @@ const Dashboard = () => {
           handleProjectChange={handleProjectChange}
         />
       </Header>
-      <section className="p-3 flex flex-col h-full overflow-y-auto overflow-x-hidden hide_scrollbar">
-        <Deployments selectedProject={selectedProject} />
-      </section>
+
+      <Deployments selectedProject={selectedProject} />
     </Fragment>
   );
 };
