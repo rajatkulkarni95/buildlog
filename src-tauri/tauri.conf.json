@@ -67,7 +67,8 @@
         "height": 640,
         "resizable": true,
         "title": "BuildLog",
-        "width": 400
+        "width": 400,
+        "decorations": false
       }
     ]
   }
