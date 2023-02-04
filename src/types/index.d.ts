@@ -13,36 +13,44 @@ export interface IProject {
     id: string;
     name: string;
   }[];
-  pagination: {
-    count: number;
-    next: number;
-    prev: number;
-  };
+  pagination: IPagination;
+}
+
+export interface IDeploymentResponse {
+  deployments: IDeployment[];
+  pagination: IPagination;
 }
 
 export interface IDeployment {
-  deployments: {
+  uid: string;
+  name: string;
+  state?:
+    | "BUILDING"
+    | "ERROR"
+    | "INITIALIZING"
+    | "QUEUED"
+    | "READY"
+    | "CANCELED";
+  creator: {
     uid: string;
-    name: string;
-    creator: {
-      uid: string;
-      email: string;
-      username: string;
-    };
-    inspectorUrl: string;
-    meta: {
-      githubCommitOrg: string;
-      githubCommitRepo: string;
-      githubCommitRef: string;
-      githubCommitSha: string;
-    };
-    createdAt: number;
-    buildingAt: number;
-    ready: number;
-  }[];
-  pagination: {
-    count: number;
-    next: number;
-    prev: number;
+    email: string;
+    username: string;
   };
+  inspectorUrl: string;
+  meta: {
+    githubCommitOrg: string;
+    githubCommitRepo: string;
+    githubCommitRef: string;
+    githubCommitSha: string;
+    githubCommitMessage: string;
+  };
+  createdAt: number;
+  buildingAt: number;
+  ready: number;
+}
+
+export interface IPagination {
+  count: number;
+  next: number;
+  prev: number;
 }

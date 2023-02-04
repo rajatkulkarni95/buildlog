@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import useSWR from "swr";
 import Header from "~/components/common/Header";
+import Deployments from "~/components/Deployments";
 import ProjectsDropdown from "~/components/ProjectsDropdown";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
@@ -14,7 +16,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <Fragment>
       <Header classes="justify-between">
         <div className="flex items-center">
           <Image
@@ -35,7 +37,13 @@ const Dashboard = () => {
         </div>
         <ProjectsDropdown />
       </Header>
-    </div>
+      <section className="p-3 flex flex-col h-full overflow-y-auto overflow-x-hidden hide_scrollbar">
+        <p className="text-sm mb-2 font-medium text-zinc-500 dark:text-zinc-400">
+          Deployments
+        </p>
+        <Deployments />
+      </section>
+    </Fragment>
   );
 };
 

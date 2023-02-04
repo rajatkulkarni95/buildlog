@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.hide_scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
 /* Karla */
 
 /* karla-regular - latin */
