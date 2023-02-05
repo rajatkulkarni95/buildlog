@@ -28,11 +28,7 @@ const TokenRegistration = () => {
 
   return (
     <section className="flex flex-col w-full p-4">
-      <p className="text-sm font-normal text-zinc-500 dark:text-zinc-400">
-        Getting Started
-      </p>
-
-      <form className="flex flex-col w-full mt-5" onSubmit={handleSubmit}>
+      <form className="flex flex-col w-full mt-3" onSubmit={handleSubmit}>
         <label
           htmlFor="token"
           className="text-sm font-normal text-zinc-900 dark:text-zinc-50"
@@ -72,6 +68,18 @@ const TokenRegistration = () => {
           <p className="text-sm font-normal text-red-500 mt-2">{error}</p>
         )}
       </form>
+
+      <p className="text-sm text-zinc-700 dark:text-zinc-300 mt-4">
+        Steps for creating a Personal Access Token are listed{" "}
+        <a
+          href="https://vercel.com/docs/rest-api#introduction/api-basics/authentication/creating-an-access-token"
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-500 dark:text-blue-400"
+        >
+          here
+        </a>
+      </p>
     </section>
   );
 };
