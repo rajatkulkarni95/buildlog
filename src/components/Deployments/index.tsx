@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import useSWRInfinite from "swr/infinite";
-import useVirtual from "react-cool-virtual";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
 import { IDeployment, IDeploymentResponse } from "~/types";
@@ -39,11 +38,6 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
     ?.map((page) => page.deployments)
     .flat() as IDeployment[];
 
-  const { outerRef, innerRef } = useVirtual({
-    itemCount: totalDeployments?.length || 15,
-    itemSize: 110,
-  });
-
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {});
 
@@ -51,6 +45,8 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
 
   useEffect(() => {
     if (isVisible && !isLoading && !isValidating) {
+      console.log("hello");
+
       setSize(size + 1);
     }
   }, [isVisible]);
@@ -64,7 +60,7 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
   }
 
   return (
-    <section className="p-3 flex flex-col h-full">
+    <section className="p-3 flex flex-col overflow-y-auto overflow-x-hidden hide_scrollbar h-full">
       <div className="flex justify-between items-center mb-2">
         <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
           Deployments
@@ -73,17 +69,11 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
           <UpdateIcon className="animate-spin text-zinc-400 dark:text-zinc-500 mr-3" />
         )}
       </div>
-      <section
-        className="overflow-y-auto overflow-x-hidden hide_scrollbar h-full mb-8"
-        ref={outerRef}
-      >
-        <section ref={innerRef}>
-          {totalDeployments?.map((deployment) => (
-            <DeploymentCard key={deployment.uid} deployment={deployment} />
-          ))}
-        </section>
-      </section>
-      <div className="h-10 flex items-center justify-center" ref={ref}>
+
+      {totalDeployments?.map((deployment) => (
+        <DeploymentCard key={deployment.uid} deployment={deployment} />
+      ))}
+      <div className="flex items-center justify-center" ref={ref}>
         {isLoading && (
           <UpdateIcon className="animate-spin text-zinc-400 dark:text-zinc-500 mr-3" />
         )}
