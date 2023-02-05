@@ -947,7 +947,7 @@
     "@babel/helper-validator-option" "^7.18.6"
     "@babel/plugin-transform-typescript" "^7.18.6"
 
-"@babel/runtime@^7.13.10", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.13.10", "@babel/runtime@^7.16.7", "@babel/runtime@^7.8.4":
   version "7.20.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.13.tgz#7055ab8a7cff2b8f6058bf6ae45ff84ad2aded4b"
   integrity sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==
@@ -2346,6 +2346,13 @@ quick-lru@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
+
+react-cool-virtual@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-cool-virtual/-/react-cool-virtual-0.7.0.tgz#8fa5d8b622b1c73406f4542eba8cd75de3bc3558"
+  integrity sha512-oWRsF0Pf9dRWncpFvsCNWm0W/d/UEbUqxNIuhGEcLzdW16leokcl9gSYG9Ha5raaF/qq029W1cj65zAwgJyR7A==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
 
 react-dom@^18.2.0:
   version "18.2.0"
