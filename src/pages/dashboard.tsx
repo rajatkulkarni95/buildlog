@@ -5,12 +5,13 @@ import useSWR from "swr";
 import Header from "~/components/common/Header";
 import Deployments from "~/components/Deployments";
 import ProjectsDropdown from "~/components/ProjectsDropdown";
+import Settings from "~/components/Settings";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
 import { IUser } from "~/types";
 
 const Dashboard = () => {
-  const { data, error } = useSWR<IUser, Error>(API_ENDPOINTS.user, fetcher, {});
+  const { data, error } = useSWR<IUser, Error>(API_ENDPOINTS.user, fetcher);
   const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<string>("");
 
@@ -24,6 +25,8 @@ const Dashboard = () => {
   const handleProjectChange = (id: string) => {
     setSelectedProject(id);
   };
+
+  if (!data) return;
 
   return (
     <Fragment>
@@ -40,15 +43,18 @@ const Dashboard = () => {
             <p className="text-base font-medium text-zinc-900 dark:text-zinc-50">
               {data?.user.name}
             </p>
-            <p className="text-xs font-normal text-zinc-400 dark:text-zinc-400">
+            <p className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
               {data?.user.username}
             </p>
           </section>
         </div>
-        <ProjectsDropdown
-          selectedProject={selectedProject}
-          handleProjectChange={handleProjectChange}
-        />
+        <div className="flex items-center">
+          <ProjectsDropdown
+            selectedProject={selectedProject}
+            handleProjectChange={handleProjectChange}
+          />
+          <Settings />
+        </div>
       </Header>
       <Deployments selectedProject={selectedProject} />
     </Fragment>
