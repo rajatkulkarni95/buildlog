@@ -11,7 +11,7 @@ import fetcher from "~/helpers/fetcher";
 import { IUser } from "~/types";
 
 const Dashboard = () => {
-  const { data, error } = useSWR<IUser, Error>(API_ENDPOINTS.user, fetcher, {});
+  const { data, error } = useSWR<IUser, Error>(API_ENDPOINTS.user, fetcher);
   const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<string>("");
 
@@ -25,6 +25,8 @@ const Dashboard = () => {
   const handleProjectChange = (id: string) => {
     setSelectedProject(id);
   };
+
+  if (!data) return;
 
   return (
     <Fragment>

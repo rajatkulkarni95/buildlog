@@ -1,18 +1,19 @@
 import { useRouter } from "next/router";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import useSWR from "swr";
 import Header from "~/components/common/Header";
 import TokenRegistration from "~/components/TokenRegistration";
-import { API_ENDPOINTS } from "~/constants/API";
-import fetcher from "~/helpers/fetcher";
 
 function Index() {
-  const { data } = useSWR(API_ENDPOINTS.user, fetcher);
   const router = useRouter();
 
-  if (data) {
-    router.push("/dashboard");
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <Fragment>
