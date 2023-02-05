@@ -30,8 +30,7 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
 
   const { data, error, setSize, size, isLoading, isValidating } =
     useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
-      refreshInterval: 30 * 1000,
-      revalidateFirstPage: false,
+      refreshInterval: 15 * 1000,
       revalidateOnFocus: false,
     });
 

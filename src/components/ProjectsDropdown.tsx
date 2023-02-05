@@ -67,7 +67,7 @@ const ProjectsDropdown = ({
       items={availableProjects}
       selectedId={selectedProject}
       handleOnClick={handleProjectChange}
-      ref={scrollRef}
+      scrollRef={scrollRef}
     />
   );
 };

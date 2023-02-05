@@ -1,3 +1,6 @@
+import { Fragment } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { IDeployment } from "~/types";
 import CommitIcon from "~/svg/commit.svg";
 import ProjectIcon from "~/svg/archive.svg";
@@ -5,11 +8,8 @@ import ClockIcon from "~/svg/clock.svg";
 import BranchIcon from "~/svg/branch.svg";
 import CheckCircledIcon from "~/svg/check-circled.svg";
 import CrossCircledIcon from "~/svg/cross-circled.svg";
-import OpenInNewWindowIcon from "~/svg/open-in-new-window.svg";
 import VercelIcon from "~/svg/vercel-logo.svg";
 import UpdateIcon from "~/svg/update.svg";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
@@ -106,15 +106,19 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
               Inspector
             </span>
           </a>
-          &#8226;
-          <a
-            href={`https://${url}`}
-            className="ml-2 text-zinc-900 dark:text-zinc-50 hover:underline text-xs"
-            target="_blank"
-            rel="noreferrer"
-          >
-            View Site
-          </a>
+          {state === "READY" && (
+            <Fragment>
+              &#8226;
+              <a
+                href={`https://${url}`}
+                className="ml-2 text-zinc-900 dark:text-zinc-50 hover:underline text-xs"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Site
+              </a>
+            </Fragment>
+          )}
         </div>
       </section>
     </div>

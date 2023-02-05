@@ -10,7 +10,7 @@ interface IDropdown {
   }[];
   selectedId?: string;
   handleOnClick: (id: string) => void;
-  ref?: React.RefObject<HTMLDivElement>;
+  scrollRef?: React.RefObject<HTMLDivElement>;
 }
 
 const Dropdown = ({
@@ -18,7 +18,7 @@ const Dropdown = ({
   items,
   selectedId,
   handleOnClick,
-  ref,
+  scrollRef,
 }: IDropdown) => {
   return (
     <DropdownMenu.Root>
@@ -53,7 +53,7 @@ const Dropdown = ({
               )}
             </DropdownMenu.Item>
           ))}
-          <div ref={ref} />
+          <div ref={scrollRef} />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
