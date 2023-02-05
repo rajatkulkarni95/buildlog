@@ -91,8 +91,9 @@ const DeploymentCard = ({ deployment }: IDeploymentCardProps) => {
         </div>
         <div className="flex items-center">
           <ClockIcon className="mr-1 text-zinc-500 dark:text-zinc-400 flex-shrink-0" />{" "}
-          <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400 mr-1 max-w-[220px] truncate">
-            {dayjs(ready).fromNow()} by {creator.username} &nbsp;
+          <span className="text-xs font-normal text-zinc-500 dark:text-zinc-400 mr-1 max-w-[180px] truncate">
+            {dayjs(ready).fromNow()} by {creator.username}
+            &nbsp;
           </span>
           &#8226;
           <a
