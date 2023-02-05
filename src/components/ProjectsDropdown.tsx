@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
 import { IProject } from "~/types";
+
 import Dropdown from "./common/Dropdown";
 
 interface IProjectDropdownProps {
@@ -68,6 +69,7 @@ const ProjectsDropdown = ({
       selectedId={selectedProject}
       handleOnClick={handleProjectChange}
       scrollRef={scrollRef}
+      isLoading={isLoading}
     />
   );
 };
