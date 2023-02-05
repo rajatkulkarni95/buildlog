@@ -39,8 +39,6 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
     ?.map((page) => page.deployments)
     .flat() as IDeployment[];
 
-  console.log({ totalDeployments });
-
   const { outerRef, innerRef } = useVirtual({
     itemCount: totalDeployments?.length || 15,
     itemSize: 110,
