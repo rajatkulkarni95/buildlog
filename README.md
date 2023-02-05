@@ -2,7 +2,11 @@
 
 Quickly look at your Vercel Deployments in you menu bar!
 
-![Hey](./assets/Display.png)
+![Demo Image](./assets/Display.png)
+
+https://user-images.githubusercontent.com/57321156/216831177-3bf14c0c-fd03-469a-b1ce-fe3aecf89fc9.mov
+
+
 
 ## Building
 
