@@ -76,7 +76,7 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
         )}
       </div>
       <section
-        className="overflow-y-auto overflow-x-hidden hide_scrollbar h-full"
+        className="overflow-y-auto overflow-x-hidden hide_scrollbar h-full mb-8"
         ref={outerRef}
       >
         <section ref={innerRef}>
