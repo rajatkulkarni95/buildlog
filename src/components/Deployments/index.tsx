@@ -6,10 +6,17 @@ import { IDeployment, IDeploymentResponse } from "~/types";
 import UpdateIcon from "~/svg/update.svg";
 import DeploymentCard from "./Card";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
+import { sendNotification } from "@tauri-apps/api/notification";
 
 interface IDeploymentsProps {
   selectedProject: string;
 }
+
+interface IInprogressDeployments {
+  [key: string]: IDeployment;
+}
+
+const inProgressDeployments: IInprogressDeployments = {};
 
 const Deployments = ({ selectedProject }: IDeploymentsProps) => {
   const getKey = (pageIndex: number, previousPageData: IDeploymentResponse) => {
@@ -30,8 +37,9 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
 
   const { data, error, setSize, size, isLoading, isValidating } =
     useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
-      refreshInterval: 15 * 1000,
+      refreshInterval: 10 * 1000,
       revalidateOnFocus: false,
+      refreshWhenHidden: true,
     });
 
   const totalDeployments = data
@@ -43,10 +51,42 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
 
   const isVisible = !!entry?.isIntersecting;
 
+  const isDeploymentBuilding = () => {
+    totalDeployments?.forEach((deployment) => {
+      if (
+        deployment.state === "BUILDING" &&
+        !inProgressDeployments.hasOwnProperty(deployment.uid)
+      ) {
+        inProgressDeployments[deployment.uid] = deployment;
+        sendNotification({
+          title: "BuildLog",
+          body: `Deployment Started for ${deployment.name}`,
+        });
+      } else if (
+        deployment.state === "READY" &&
+        inProgressDeployments.hasOwnProperty(deployment.uid)
+      ) {
+        let state = "";
+        if (deployment.state === "READY") {
+          state = "Successfully deployed";
+        } else if (deployment.state === "ERROR") {
+          state = "Failed to deploy";
+        }
+        sendNotification({
+          title: "BuildLog",
+          body: `${state} ${deployment.name} `,
+        });
+        delete inProgressDeployments[deployment.uid];
+      }
+    });
+  };
+
+  useEffect(() => {
+    isDeploymentBuilding();
+  }, [totalDeployments]);
+
   useEffect(() => {
     if (isVisible && !isLoading && !isValidating) {
-      console.log("hello");
-
       setSize(size + 1);
     }
   }, [isVisible]);
