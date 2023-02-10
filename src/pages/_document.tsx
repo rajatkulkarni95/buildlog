@@ -6,7 +6,7 @@ class SpecialDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
+        <body className="transition-colors duration-100">
           <Main />
           <NextScript />
         </body>

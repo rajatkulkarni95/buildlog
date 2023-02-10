@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import AlertDialog from "~/components/common/AlertDialog";
 import Header from "~/components/common/Header";
 import RadioGroup from "~/components/common/RadioGroup";
+import Slider from "~/components/common/Slider";
 import LeftArrow from "~/svg/arrow-left.svg";
 
 const THEMES = [
@@ -44,6 +45,7 @@ const SettingsPage = () => {
   const router = useRouter();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [notificationSetting, setNotificationSetting] = useState("no");
+  const [frequency, setFrequency] = useState([15]);
 
   // When mounted on client, now we can show the UI
   useEffect(() => {
@@ -51,6 +53,7 @@ const SettingsPage = () => {
     setNotificationSetting(
       window.localStorage.getItem("notifications") || "no"
     );
+    setFrequency([parseInt(window.localStorage.getItem("frequency") || "15")]);
   }, []);
 
   if (!mounted) return null;
@@ -58,6 +61,11 @@ const SettingsPage = () => {
   const handleSetNotification = (value: string) => {
     setNotificationSetting(value);
     window.localStorage.setItem("notifications", value);
+  };
+
+  const handleFrequencyChange = (value: number[]) => {
+    setFrequency(value);
+    window.localStorage.setItem("frequency", value[0].toString());
   };
 
   const handleClickLogout = () => {
@@ -107,6 +115,24 @@ const SettingsPage = () => {
             items={NOTIFICATIONS}
             value={notificationSetting}
             handleChange={(val) => handleSetNotification(val)}
+          />
+        </section>
+        <section className="flex items-center justify-between mt-8">
+          <div className="flex flex-col">
+            <p className="text-sm font-medium text-zinc-700 dark:text-zinc-200">
+              Request Interval
+            </p>
+            <p className="text-xs font-normal text-zinc-500 dark:text-zinc-400">
+              How frequently should BuildLog check for new deployments?
+            </p>
+          </div>
+          <Slider
+            max={60}
+            min={10}
+            step={5}
+            label="Interval"
+            value={frequency}
+            handleChange={handleFrequencyChange}
           />
         </section>
         <section className="mt-auto flex justify-between items-center p-4 border border-red-400 rounded bg-red-200/30 dark:bg-red-800/20">
