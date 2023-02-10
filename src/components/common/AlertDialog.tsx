@@ -24,7 +24,7 @@ const AlertDialog = ({
     <RadixAlertDialog.Trigger asChild>
       <button
         onClick={handleTriggerClick}
-        className="py-1 mt-6 px-3 font-sans text-sm border w-full rounded border-red-500 bg-transparent text-red-500 hover:text-zinc-50 hover:bg-red-500"
+        className="py-1.5 px-4 font-sans text-sm border rounded border-red-500 text-zinc-50 bg-red-500 hover:bg-red-600"
       >
         {triggerLabel}
       </button>
