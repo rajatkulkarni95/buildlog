@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import AlertDialog from "~/components/common/AlertDialog";
 import Header from "~/components/common/Header";
-import ToggleGroup from "~/components/common/ToggleGroup";
+import RadioGroup from "~/components/common/RadioGroup";
 import LeftArrow from "~/svg/arrow-left.svg";
 
 const THEMES = [
@@ -43,13 +43,20 @@ const SettingsPage = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [notificationSetting, setNotificationSetting] = useState("no");
 
   // When mounted on client, now we can show the UI
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    setNotificationSetting(
+      window.localStorage.getItem("notifications") || "no"
+    );
+  }, []);
 
   if (!mounted) return null;
 
   const handleSetNotification = (value: string) => {
+    setNotificationSetting(value);
     window.localStorage.setItem("notifications", value);
   };
 
@@ -79,7 +86,7 @@ const SettingsPage = () => {
               How would you like BuildLog to look?
             </p>
           </div>
-          <ToggleGroup
+          <RadioGroup
             label="Theme"
             items={THEMES}
             value={theme}
@@ -95,14 +102,14 @@ const SettingsPage = () => {
               Send system messages when deployment starts and ends.
             </p>
           </div>
-          <ToggleGroup
+          <RadioGroup
             label="Notifications"
             items={NOTIFICATIONS}
-            value="no"
+            value={notificationSetting}
             handleChange={(val) => handleSetNotification(val)}
           />
         </section>
-        <section className="mt-auto flex justify-between items-center p-4 border border-red-400 rounded bg-red-800/20">
+        <section className="mt-auto flex justify-between items-center p-4 border border-red-400 rounded bg-red-200/30 dark:bg-red-800/20">
           <div className="flex flex-col">
             <p className="text-sm font-medium text-zinc-700 dark:text-zinc-200">
               Log Out?
