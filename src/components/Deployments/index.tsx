@@ -5,7 +5,7 @@ import fetcher from "~/helpers/fetcher";
 import { IDeployment, IDeploymentResponse } from "~/types";
 import UpdateIcon from "~/svg/update.svg";
 import DeploymentCard from "./Card";
-import useIntersectionObserver from "~/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "~/hooks";
 import { sendNotification } from "@tauri-apps/api/notification";
 
 interface IDeploymentsProps {
@@ -35,11 +35,16 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
     }
   };
 
+  const showNotifications =
+    window.localStorage.getItem("notifications") === "yes" ? true : false;
+
+  const frequency = parseInt(window.localStorage.getItem("frequency") || "15");
+
   const { data, error, setSize, size, isLoading, isValidating } =
     useSWRInfinite<IDeploymentResponse>(getKey, fetcher, {
-      refreshInterval: 60 * 1000,
+      refreshInterval: frequency * 1000,
       revalidateOnFocus: false,
-      refreshWhenHidden: true,
+      refreshWhenHidden: showNotifications,
     });
 
   const totalDeployments = data
@@ -82,7 +87,9 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
   };
 
   useEffect(() => {
-    isDeploymentBuilding();
+    if (showNotifications) {
+      isDeploymentBuilding();
+    }
   }, [totalDeployments]);
 
   useEffect(() => {
