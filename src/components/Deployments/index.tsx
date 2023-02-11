@@ -65,7 +65,7 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
         inProgressDeployments[deployment.uid] = deployment;
         sendNotification({
           title: "BuildLog",
-          body: `Deployment Started for ${deployment.name}`,
+          body: `${deployment.name} - Deployment started`,
         });
       } else if (
         deployment.state === "READY" &&
@@ -73,13 +73,13 @@ const Deployments = ({ selectedProject }: IDeploymentsProps) => {
       ) {
         let state = "";
         if (deployment.state === "READY") {
-          state = "Successfully deployed";
+          state = "🎉 Deployed";
         } else if (deployment.state === "ERROR") {
-          state = "Failed to deploy";
+          state = "❌ Failed";
         }
         sendNotification({
           title: "BuildLog",
-          body: `${state} ${deployment.name} `,
+          body: `${deployment.name} - ${state}`,
         });
         delete inProgressDeployments[deployment.uid];
       }
