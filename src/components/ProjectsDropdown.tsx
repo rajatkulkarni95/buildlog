@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import useSWRInfinite from "swr/infinite";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
-import useIntersectionObserver from "~/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "~/hooks";
 import { IProject } from "~/types";
 
 import Dropdown from "./common/Dropdown";

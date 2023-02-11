@@ -5,10 +5,11 @@ import useSWR from "swr";
 import Header from "~/components/common/Header";
 import Deployments from "~/components/Deployments";
 import ProjectsDropdown from "~/components/ProjectsDropdown";
-import Settings from "~/components/Settings";
+import GearIcon from "~/svg/gear.svg";
 import { API_ENDPOINTS } from "~/constants/API";
 import fetcher from "~/helpers/fetcher";
 import { IUser } from "~/types";
+import Link from "next/link";
 
 const Dashboard = () => {
   const { data, error } = useSWR<IUser, Error>(API_ENDPOINTS.user, fetcher);
@@ -53,7 +54,11 @@ const Dashboard = () => {
             selectedProject={selectedProject}
             handleProjectChange={handleProjectChange}
           />
-          <Settings />
+          <Link href="/settings">
+            <button className="ml-2 bg-transparent hover:bg-zinc-200 hover:dark:bg-zinc-700 p-2 rounded">
+              <GearIcon />
+            </button>
+          </Link>
         </div>
       </Header>
       <Deployments selectedProject={selectedProject} />
